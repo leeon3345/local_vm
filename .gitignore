@@ -1,0 +1,10 @@
+# K8s Secret 파일 — 절대 커밋 금지
+*-secret.yaml
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
