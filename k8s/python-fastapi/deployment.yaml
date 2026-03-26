@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: python-fastapi
-          image: leeon3345/python-fastapi:3.11-slim
+          image: leeon3345/local_vm-python-fastapi:latest
           ports:
             - containerPort: 8000
               protocol: TCP
