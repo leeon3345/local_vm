@@ -3,8 +3,8 @@ kind: Ingress
 metadata:
   name: default-ingress
   annotations:
-    # NGINX 전용 rewrite 제거 (Traefik 및 기본 설정 호환)
-    kubernetes.io/ingress.class: "traefik" 
+    # 특정한 클래스를 지정하지 않아 k3s 기본 관리자가 처리하도록 함
+    kubernetes.io/ingress.class: "" 
 spec:
   rules:
   - host: myapp.example.com
