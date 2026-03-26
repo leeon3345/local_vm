@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: react-config
+  namespace: default
+  labels:
+    app: react
+data:
+  NODE_ENV: "production"
