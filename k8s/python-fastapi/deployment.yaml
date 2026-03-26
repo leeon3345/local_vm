@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: python-fastapi
+  namespace: default
+  labels:
+    app: python-fastapi
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: python-fastapi
+  template:
+    metadata:
+      labels:
+        app: python-fastapi
+    spec:
+      containers:
+        - name: python-fastapi
+          image: your-registry/python-fastapi:3.11-slim
+          ports:
+            - containerPort: 8000
+              protocol: TCP
