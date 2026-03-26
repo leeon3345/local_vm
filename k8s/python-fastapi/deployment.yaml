@@ -18,6 +18,8 @@ spec:
       containers:
         - name: python-fastapi
           image: leeon3345/local_vm-python-fastapi:latest
+          command: ["uvicorn"]
+          args: ["main:app", "--host", "0.0.0.0", "--port", "8000"]
           ports:
             - containerPort: 8000
               protocol: TCP
