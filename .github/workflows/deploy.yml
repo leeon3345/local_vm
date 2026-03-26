@@ -24,21 +24,32 @@ jobs:
         with:
           username: ${{ secrets.REGISTRY_USERNAME }}
           password: ${{ secrets.REGISTRY_PASSWORD }}
+          
+      # [추가] ARM 아키텍처 빌드를 위한 QEMU 에뮬레이터 세팅
+      - name: 🛠️ Set up QEMU
+        uses: docker/setup-qemu-action@v3
+        
       - name: 🛠️ Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
+        
       - name: 🏗️ Build & Push React image
         uses: docker/build-push-action@v5
         with:
           context: ./frontend
           push: true
+          # [추가] 멀티 플랫폼 동시 빌드 지시
+          platforms: linux/amd64,linux/arm64
           tags: |
             leeon3345/local_vm-react:latest
             leeon3345/local_vm-react:${{ github.sha }}
+            
       - name: 🏗️ Build & Push Python FastAPI image
         uses: docker/build-push-action@v5
         with:
           context: ./backend
           push: true
+          # [추가] 멀티 플랫폼 동시 빌드 지시
+          platforms: linux/amd64,linux/arm64
           tags: |
             leeon3345/local_vm-python-fastapi:latest
             leeon3345/local_vm-python-fastapi:${{ github.sha }}
