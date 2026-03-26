@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: react
+  namespace: default
+  labels:
+    app: react
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: react
+  template:
+    metadata:
+      labels:
+        app: react
+    spec:
+      containers:
+        - name: react
+          image: your-registry/react:18-alpine
+          ports:
+            - containerPort: 80
+              protocol: TCP
+          envFrom:
+          - configMapRef:
+              name: react-config
