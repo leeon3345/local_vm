@@ -32,16 +32,16 @@ jobs:
           context: ./frontend
           push: true
           tags: |
-            your-registry/local_vm-react:latest
-            your-registry/local_vm-react:${{ github.sha }}
+            leeon3345/local_vm-react:latest
+            leeon3345/local_vm-react:${{ github.sha }}
       - name: 🏗️ Build & Push Python FastAPI image
         uses: docker/build-push-action@v5
         with:
           context: ./backend
           push: true
           tags: |
-            your-registry/local_vm-python-fastapi:latest
-            your-registry/local_vm-python-fastapi:${{ github.sha }}
+            leeon3345/local_vm-python-fastapi:latest
+            leeon3345/local_vm-python-fastapi:${{ github.sha }}
   deploy:
     name: ☸️ Deploy to Kubernetes
     runs-on: ubuntu-latest
