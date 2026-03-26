@@ -1,6 +1,5 @@
 name: Deploy to VM via Tailscale
 
-# 1. 이벤트 트리거 정의 (main 브랜치에 푸시될 때 실행)
 on:
   push:
     branches: [ main ]
@@ -8,34 +7,23 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    
     steps:
-      # 2. 체크아웃 (GitHub 서버로 코드 가져오기)
       - name: 🚀 Checkout code
         uses: actions/checkout@v4
 
-      # 3. Tailscale 연결 (비밀 주소망 접속)
       - name: 🛡️ Connect to Tailscale
-        uses: tailscale/github-action@v3
+        uses: tailscale/github-action@v2
         with:
           authkey: ${{ secrets.TAILSCALE_AUTH_KEY }}
 
-      # 4. SSH 접속 및 Docker 명령어 실행
       - name: 🐳 Deploy with Docker
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: 100.127.24.54        # 가상머신 Tailscale IP
           username: leeon            # 사용자 계정명
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          port: 22                   # Tailscale 연결 시 기본 SSH 포트 사용
+          port: 22
           script: |
-            # 가상머신 내부에서 실행될 명령어들
             echo "Connected to VM successfully!"
-            
-            # Docker 컨테이너 상태 확인
             docker ps
-            
-            # (필요 시) 프로젝트 폴더로 이동 후 컨테이너 재시작 명령어 추가 가능
-            # cd ~/Grad-Deploy && docker-compose up -d --build
-            
             echo "Deployment successful via Tailscale network!"
