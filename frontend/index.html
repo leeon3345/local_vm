@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Grad-Deploy Test</title>
+</head>
+<body>
+    <h1>Grad-Deploy Frontend</h1>
+    <div id="data">Loading data from backend...</div>
+
+    <script>
+        // 백엔드 주소는 나중에 쿠버네티스 서비스 이름으로 연결됨
+        fetch('/api')
+            .then(res => res.json())
+            .then(data => {
+                document.getElementById('data').innerText = data.message;
+            });
+    </script>
+</body>
+</html>
