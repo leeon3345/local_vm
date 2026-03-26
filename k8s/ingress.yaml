@@ -2,27 +2,25 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: default-ingress
-  namespace: default
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
-    nginx.ingress.kubernetes.io/proxy-body-size: "50m"
+    # NGINX 전용 rewrite 제거 (Traefik 및 기본 설정 호환)
+    kubernetes.io/ingress.class: "traefik" 
 spec:
-  ingressClassName: nginx
   rules:
-    - host: myapp.example.com
-      http:
-        paths:
-        - path: /
-          pathType: Prefix
-          backend:
-            service:
-              name: react-svc
-              port:
-                number: 80
-        - path: /api/python-fastapi
-          pathType: Prefix
-          backend:
-            service:
-              name: python-fastapi-svc
-              port:
-                number: 8000
+  - host: myapp.example.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: react-svc
+            port:
+              number: 80
+      - path: /api/python-fastapi
+        pathType: Prefix
+        backend:
+          service:
+            name: python-fastapi-svc
+            port:
+              number: 8000
